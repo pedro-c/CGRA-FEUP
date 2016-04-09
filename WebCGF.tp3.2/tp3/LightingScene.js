@@ -32,7 +32,10 @@ LightingScene.prototype.init = function(application) {
 	this.table = new MyTable(this);
 	this.wall = new Plane(this);
 	this.floor = new MyQuad(this);
-	this.prism = new MyPrism(this);
+	this.prism = new MyPrism(this, 6, 20);
+	this.prism8 = new MyPrism(this, 8, 20);
+	this.cylinder = new MyCylinder(this, 8, 20);
+	this.lamp = new myLamp(this,100,20);
 	
 	this.boardA = new Plane(this, BOARD_A_DIVISIONS);
 	this.boardB = new Plane(this, BOARD_B_DIVISIONS);
@@ -65,6 +68,7 @@ LightingScene.prototype.initLights = function() {
 	this.lights[0].setPosition(4, 6, 1, 1);
 	this.lights[0].setVisible(true); // show marker on light position (different from enabled)
 	
+
 	this.lights[1].setPosition(10.5, 6.0, 1.0, 1.0);
 	this.lights[1].setVisible(true); // show marker on light position (different from enabled)
 
@@ -84,11 +88,12 @@ LightingScene.prototype.initLights = function() {
 	this.lights[0].setSpecular(1,1,0,1);
 	this.lights[0].enable();
 
+
 	this.lights[1].setAmbient(0, 0, 0, 1);
 	this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
 	this.lights[1].setSpecular(1,1,0,1);
 	this.lights[1].enable();
-
+/*
 	this.lights[2].setAmbient(0, 0, 0, 1);
 	this.lights[2].setDiffuse(1.0, 1.0, 1.0, 1.0);
 	this.lights[2].setSpecular(1,1,1,1);
@@ -104,7 +109,7 @@ LightingScene.prototype.initLights = function() {
 	this.lights[3].setConstantAttenuation(0.0);
 	this.lights[3].setLinearAttenuation(0.0);
 	this.lights[3].setQuadraticAttenuation(1.0);
-
+*/
 
 };
 
@@ -199,7 +204,23 @@ LightingScene.prototype.display = function() {
 		this.boardB.display();
 	this.popMatrix();
 */
-	this.prism.display();
+
+
+	//this.prism.display();
+
+	this.pushMatrix();
+		this.rotate(90 * degToRad, -1, 0, 0);
+		this.translate(2.5,0,0);
+		this.prism8.display();
+	this.popMatrix();
+
+	this.pushMatrix();
+		this.rotate(90 * degToRad, -1, 0, 0);
+		//this.cylinder.display();
+	this.popMatrix();
+
+	this.lamp.display();
+
 
 	// ---- END Primitive drawing section
 };
