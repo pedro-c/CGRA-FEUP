@@ -18,6 +18,10 @@ LightingScene.prototype.constructor = LightingScene;
 LightingScene.prototype.init = function(application) {
 	CGFscene.prototype.init.call(this, application);
 
+	this.option1 = true;
+	this.option2 = false;
+	this.speed = 3;
+
 	this.initCameras();
 	this.enableTextures(true);
 
@@ -41,6 +45,7 @@ LightingScene.prototype.init = function(application) {
 	this.cylinder = new MyCylinder(this, 20, 20);
 	this.lamp = new myLamp(this,100,20);
 	this.clock = new MyClock(this,105,184.5,270);
+	this.drone = new MyDrone(this);
 
 	
 	this.boardA = new Plane(this, BOARD_A_DIVISIONS);
@@ -199,7 +204,10 @@ LightingScene.prototype.update = function(currTime) {
 
 }
 
-
+LightingScene.prototype.doSomething = function()
+{
+	console.log("Something Something Dark Side");
+}
 
 LightingScene.prototype.display = function() {
 	// ---- BEGIN Background, camera and axis setup
@@ -241,6 +249,17 @@ LightingScene.prototype.display = function() {
 		this.wall.display();
 	this.popMatrix();
 	
+	
+	//Drone
+	this.pushMatrix();
+		
+		this.translate(7.5, 4.3 ,7.5);
+		this.rotate(-160 * degToRad, 0, 1, 0);
+		this.drone.display();
+
+	this.popMatrix();
+
+
 	// Floor
 	this.pushMatrix();
 		this.translate(7.5, 0, 7.5);
@@ -259,7 +278,6 @@ LightingScene.prototype.display = function() {
 		this.windowAppearance.apply();
 		this.wallLeft.display();
 	this.popMatrix();
-
 
 
 	// First Table
@@ -319,7 +337,6 @@ LightingScene.prototype.display = function() {
 		this.clockAppearance.apply();
 		this.clock.display();
 	this.popMatrix();
-
 
 
 	
