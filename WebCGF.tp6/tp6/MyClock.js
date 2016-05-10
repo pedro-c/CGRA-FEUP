@@ -22,8 +22,8 @@
 	this.setAngleS(seconds);
 
 	this.scene = scene;
-	this.sides = new MyCylinder(scene, 10, 5);
-	this.top = new MyCircle(scene,10);
+	this.sides = new MyCylinder(scene, 100, 20);
+	this.top = new MyCircle(scene,100);
 	this.hours = new MyClockHand(scene,0.6,1);
 	this.minutes = new MyClockHand(scene,0.8,1);
 	this.seconds = new MyClockHand(scene,0.8,0.5);
@@ -89,7 +89,5 @@
 	this.scene.popMatrix();
 
 
-
-	this.primitiveType = this.scene.gl.TRIANGLES;
-
+ 	this.primitiveType = this.scene.gl.TRIANGLES;
  };

@@ -43,7 +43,7 @@ LightingScene.prototype.init = function(application) {
 	this.prism = new MyPrism(this, 6, 20);
 	this.prism8 = new MyPrism(this, 8, 20);
 	this.cylinder = new MyCylinder(this, 20, 20);
-	this.lamp = new myLamp(this,100,20);
+	this.lamp = new MyLamp(this,100,20);
 	this.clock = new MyClock(this,105,184.5,270);
 	this.drone = new MyDrone(this);
 
@@ -254,7 +254,7 @@ LightingScene.prototype.display = function() {
 	this.pushMatrix();
 		
 		this.translate(7.5, 4.3 ,7.5);
-		this.rotate(-160 * degToRad, 0, 1, 0);
+		//this.rotate(-160 * degToRad, 0, 1, 0);
 		this.drone.display();
 
 	this.popMatrix();

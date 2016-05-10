@@ -1,8 +1,8 @@
 /**
- * myLamp
+ * MyLamp
  * @constructor
  */
- function myLamp(scene, slices, stacks) {
+ function MyLamp(scene, slices, stacks) {
  	CGFobject.call(this,scene);
 
 	//if slices not define, set to 6
@@ -17,10 +17,10 @@
  	this.initBuffers();
  };
 
- myLamp.prototype = Object.create(CGFobject.prototype);
- myLamp.prototype.constructor = myLamp;
+ MyLamp.prototype = Object.create(CGFobject.prototype);
+ MyLamp.prototype.constructor = MyLamp;
 
- myLamp.prototype.initBuffers = function() {
+ MyLamp.prototype.initBuffers = function() {
  	/*
  	* TODO:
  	* Replace the following lines in order to build a prism with a **single mesh**.
