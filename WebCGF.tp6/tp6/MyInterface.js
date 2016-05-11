@@ -58,7 +58,118 @@ MyInterface.prototype.init = function(application) {
  * processKeyboard
  * @param event {Event}
  */
+
+ /*
 MyInterface.prototype.processKeyboard = function(event) {
+	// call CGFinterface default code (omit if you want to override)
+	CGFinterface.prototype.processKeyboard.call(this,event);
+	
+	// Check key codes e.g. here: http://www.asciitable.com/
+	// or use String.fromCharCode(event.keyCode) to compare chars
+	
+	// for better cross-browser support, you may also check suggestions on using event.which in http://www.w3schools.com/jsref/event_key_keycode.asp
+	switch (event.keyCode)
+	{
+		case (65): // 'A'
+		{
+		    //this.scene.drone.setAngle();
+		    break;
+		}
+
+        case(97): // 'a'
+		{
+		    break;
+		}
+
+		case(68): // 'D'
+		{
+		    break;
+		}
+
+		case(100): // 'd'
+		{
+		    break;
+		}
+
+		case(87): // 'W'
+		{
+		    break;
+		}
+
+		case(119): // 'w'
+		{
+		    break;
+		}
+
+		case(83): // 'S'
+		{
+		    break;
+		}
+
+		case(115): // 's'
+		{
+		    break;
+		}
+
+	};
+};
+*/
+
+MyInterface.prototype.processKeyDown = function(event) {
+	// call CGFinterface default code (omit if you want to override)
+	CGFinterface.prototype.processKeyboard.call(this,event);
+	
+	// Check key codes e.g. here: http://www.asciitable.com/
+	// or use String.fromCharCode(event.keyCode) to compare chars
+	
+	// for better cross-browser support, you may also check suggestions on using event.which in http://www.w3schools.com/jsref/event_key_keycode.asp
+	switch (event.keyCode)
+	{
+		case (65): // 'A'
+		{
+		    //this.scene.drone.setAngle();
+		    break;
+		}
+
+        case(97): // 'a'
+		{
+		    break;
+		}
+
+		case(68): // 'D'
+		{
+		    break;
+		}
+
+		case(100): // 'd'
+		{
+		    break;
+		}
+
+		case(87): // 'W'
+		{
+		    break;
+		}
+
+		case(119): // 'w'
+		{
+		    break;
+		}
+
+		case(83): // 'S'
+		{
+		    break;
+		}
+
+		case(115): // 's'
+		{
+		    break;
+		}
+
+	};
+};
+
+MyInterface.prototype.processKeyUp = function(event) {
 	// call CGFinterface default code (omit if you want to override)
 	CGFinterface.prototype.processKeyboard.call(this,event);
 	

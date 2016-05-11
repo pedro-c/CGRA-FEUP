@@ -107,6 +107,22 @@ this.primitiveType = this.scene.gl.TRIANGLES;
  	this.initGLBuffers();
  };
 */
-MyDrone.prototype.setAngle = function(a) {
+
+Mydrone.prototype.moveDrone = function(){
+	this.scene.translate(this.x,this.y,this.z);
+}
+MyDrone.prototype.moveUp = function() {
+
+}
+
+MyDrone.prototype.moveDown = function() {
+
+}
+
+MyDrone.prototype.moveUp = function() {
+
+}
+
+MyDrone.prototype.moveDown = function() {
 
 }
