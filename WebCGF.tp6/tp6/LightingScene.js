@@ -25,6 +25,7 @@ LightingScene.prototype.init = function(application) {
 	this.luz4 = true;
 	this.clockMovement = true;
 	this.droneSpeed = 1;
+	this.heliceRotationFactor = 1;
 
 	this.initCameras();
 	this.enableTextures(true);
@@ -173,6 +174,9 @@ LightingScene.prototype.updateLights = function() {
 LightingScene.prototype.update = function(currTime) {
 	
 	this.drone.update(currTime);
+	
+	
+
 	var time = Math.floor(currTime/1000);
 
 
@@ -217,13 +221,9 @@ LightingScene.prototype.update = function(currTime) {
 	}
 
 	
-
+	this.drone.setHeliceRotationFactor(this.heliceRotationFactor);
 }
 
-LightingScene.prototype.doSomething = function()
-{
-	console.log("Something Something Dark Side");
-}
 
 LightingScene.prototype.display = function() {
 	// ---- BEGIN Background, camera and axis setup

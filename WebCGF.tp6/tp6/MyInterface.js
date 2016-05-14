@@ -54,6 +54,7 @@ MyInterface.prototype.init = function(application) {
 	
 	this.gui.add(this.scene, 'clockMovement');
 	this.gui.add(this.scene, 'droneSpeed', 0, 5);
+	this.gui.add(this.scene, 'heliceRotationFactor', 0, 2);
 
 	return true;
 };

@@ -13,7 +13,11 @@
  	this.base3 = new MyCylinder(scene);
  	this.base4 = new MyCylinder(scene);
  	this.lamp = new MyLamp(scene,20,20);
- 	this.leg1 = new MyDroneLeg(scene);
+ 	this.leg1 = new MyDroneHelice(scene);
+ 	this.helice1= new MyDroneHelice(scene,0);
+ 	this.helice2= new MyDroneHelice(scene,0);
+ 	this.helice3= new MyDroneHelice(scene,0);
+ 	this.helice4= new MyDroneHelice(scene,0);
 
 
 	this.x = x;
@@ -39,6 +43,15 @@
 	this.inclinationSpeed = 0;
 	this.inclinationAccelaration = 0.020;
 	this.droneSpeed = 0;
+	this.rotationSpeedL = 0.2;
+	this.rotationSpeedN = 1;
+	this.rotationSpeedR = 10;
+
+
+	this.helice1.updateHeliceSpeed(-this.rotationSpeedN);
+	this.helice2.updateHeliceSpeed(-this.rotationSpeedN);
+	this.helice3.updateHeliceSpeed(this.rotationSpeedN);
+	this.helice4.updateHeliceSpeed(this.rotationSpeedN);
 
  	this.initBuffers();
  };
@@ -99,9 +112,43 @@
 	this.scene.popMatrix();
 
 	this.scene.pushMatrix();
-		this.leg1.display();
+		//this.leg1.display();
+	this.scene.popMatrix();
+
+
+   	//Drone Hélice 1 - esquerda
+
+	this.scene.pushMatrix();
+		this.scene.translate(1.5,0.24,0);
+		this.scene.rotate(this.helice1.b, 0,1,0);
+		this.helice1.display();
+	this.scene.popMatrix();
+
+	//Drone Hélice 2 - direita
+
+	this.scene.pushMatrix();
+		this.scene.translate(-1.5,0.24,0);
+		this.scene.rotate(this.helice2.b, 0,1,0);
+		this.helice2.display();
+	this.scene.popMatrix();
+
+	//Drone Hélice 3 - frente
+
+	this.scene.pushMatrix();
+		this.scene.translate(0,0.24,1.5);
+		this.scene.rotate(this.helice3.b, 0,1,0);
+		this.helice3.display();
+	this.scene.popMatrix();
+
+	//Drone Hélice 4 - traseira
+
+	this.scene.pushMatrix();
+		this.scene.translate(0,0.24,-1.5);
+		this.scene.rotate(this.helice4.b, 0,1,0);
+		this.helice4.display();
 	this.scene.popMatrix();
 	
+
 
 	this.primitiveType = this.scene.gl.TRIANGLES;
 
@@ -251,70 +298,124 @@ MyDrone.prototype.update = function(currTime) {
 	this.x+=xvalue*this.movingspeed;
 	
 	this.y+=this.levelSpeed;
-
 	this.a=this.inclinationSpeed;
 
 	this.b+=this.speed;
+
 	this.time = currTime;
+
+	this.helice1.updateHelice();
+	this.helice2.updateHelice();
+	this.helice3.updateHelice();
+	this.helice4.updateHelice();
+
 }
 
 
 MyDrone.prototype.startRotateLeft = function(currTime){
 
 	this.rotation=1;
+	this.helice1.updateHeliceSpeed(-this.rotationSpeedR);
+	this.helice2.updateHeliceSpeed(-this.rotationSpeedR);
+	this.helice3.updateHeliceSpeed(this.rotationSpeedL);
+	this.helice4.updateHeliceSpeed(this.rotationSpeedL);
 }
 
 MyDrone.prototype.stopRotateLeft = function(){
 	this.rotation=2;
+	this.helice1.updateHeliceSpeed(-this.rotationSpeedN);
+	this.helice2.updateHeliceSpeed(-this.rotationSpeedN);
+	this.helice3.updateHeliceSpeed(this.rotationSpeedN);
+	this.helice4.updateHeliceSpeed(this.rotationSpeedN);
 		
 }
 
 MyDrone.prototype.startRotateRight = function(currTime){
 	this.rotation=3;
+	this.helice1.updateHeliceSpeed(-this.rotationSpeedL);
+	this.helice2.updateHeliceSpeed(-this.rotationSpeedL);
+	this.helice3.updateHeliceSpeed(this.rotationSpeedR);
+	this.helice4.updateHeliceSpeed(this.rotationSpeedR);
 }
 
 MyDrone.prototype.stopRotateRight = function(){
 	this.rotation=4;
+	this.helice1.updateHeliceSpeed(-this.rotationSpeedN);
+	this.helice2.updateHeliceSpeed(-this.rotationSpeedN);
+	this.helice3.updateHeliceSpeed(this.rotationSpeedN);
+	this.helice4.updateHeliceSpeed(this.rotationSpeedN);
 		
 }
 
 
 MyDrone.prototype.startMovingFoward = function(currTime){
 	this.movingFlag=1;
+	this.helice1.updateHeliceSpeed(-this.rotationSpeedN);
+	this.helice2.updateHeliceSpeed(-this.rotationSpeedN);
+	this.helice3.updateHeliceSpeed(this.rotationSpeedL);
+	this.helice4.updateHeliceSpeed(this.rotationSpeedR);
+
 }
 
 MyDrone.prototype.startMovingBackwards = function(currTime){
 	this.movingFlag=2;
+	this.helice1.updateHeliceSpeed(-this.rotationSpeedN);
+	this.helice2.updateHeliceSpeed(-this.rotationSpeedN);
+	this.helice3.updateHeliceSpeed(this.rotationSpeedR);
+	this.helice4.updateHeliceSpeed(this.rotationSpeedL);
 }
 
 MyDrone.prototype.stopMovingFoward = function(currTime){
-	
 	this.movingFlag=3;
+	this.helice1.updateHeliceSpeed(-this.rotationSpeedN);
+	this.helice2.updateHeliceSpeed(-this.rotationSpeedN);
+	this.helice3.updateHeliceSpeed(this.rotationSpeedN);
+	this.helice4.updateHeliceSpeed(this.rotationSpeedN);
 }
 
 MyDrone.prototype.stopMovingBackwards = function(currTime){
 	this.movingFlag=4;
+	this.helice1.updateHeliceSpeed(-this.rotationSpeedN);
+	this.helice2.updateHeliceSpeed(-this.rotationSpeedN);
+	this.helice3.updateHeliceSpeed(this.rotationSpeedN);
+	this.helice4.updateHeliceSpeed(this.rotationSpeedN);
 	
 }
 
 
 MyDrone.prototype.startMovingUp = function(currTime){
 	this.levelFlag=1;
+	this.helice1.updateHeliceSpeed(-this.rotationSpeedR);
+	this.helice2.updateHeliceSpeed(-this.rotationSpeedR);
+	this.helice3.updateHeliceSpeed(this.rotationSpeedR);
+	this.helice4.updateHeliceSpeed(this.rotationSpeedR);
 	
 }
 
 MyDrone.prototype.stopMovingUp = function(currTime){
 	this.levelFlag=2;
+	this.helice1.updateHeliceSpeed(-this.rotationSpeedN);
+	this.helice2.updateHeliceSpeed(-this.rotationSpeedN);
+	this.helice3.updateHeliceSpeed(this.rotationSpeedN);
+	this.helice4.updateHeliceSpeed(this.rotationSpeedN);
 	
 }
 
 MyDrone.prototype.startMovingDown = function(currTime){
 	this.levelFlag=3;
+	this.helice1.updateHeliceSpeed(-this.rotationSpeedL);
+	this.helice2.updateHeliceSpeed(-this.rotationSpeedL);
+	this.helice3.updateHeliceSpeed(this.rotationSpeedL);
+	this.helice4.updateHeliceSpeed(this.rotationSpeedL);
 	
 }
 
 MyDrone.prototype.stopMovingDown = function(currTime){
 	this.levelFlag=4;
+	this.helice1.updateHeliceSpeed(-this.rotationSpeedN);
+	this.helice2.updateHeliceSpeed(-this.rotationSpeedN);
+	this.helice3.updateHeliceSpeed(this.rotationSpeedN);
+	this.helice4.updateHeliceSpeed(this.rotationSpeedN);
 	
 }
 MyDrone.prototype.setDroneSpeed = function(speed){
@@ -322,3 +423,13 @@ MyDrone.prototype.setDroneSpeed = function(speed){
 	this.droneSpeed=1+speed*2;
 
 }
+
+MyDrone.prototype.setHeliceRotationFactor = function(factor){
+
+	this.helice1.setFactor(factor);
+	this.helice2.setFactor(factor);
+	this.helice3.setFactor(factor);
+	this.helice4.setFactor(factor);
+
+}
+
