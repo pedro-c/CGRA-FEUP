@@ -1,8 +1,8 @@
 /**
- * MyObject
+ * MyDroneLeg
  * @constructor
  */
- function MyObject(scene, slices, stacks) {
+ function MyDroneLeg(scene, slices, stacks) {
  	CGFobject.call(this,scene);
 
 	//if slices not define, set to 6
@@ -18,10 +18,10 @@
  	this.initBuffers();
  };
 
- MyObject.prototype = Object.create(CGFobject.prototype);
- MyObject.prototype.constructor = MyObject;
+ MyDroneLeg.prototype = Object.create(CGFobject.prototype);
+ MyDroneLeg.prototype.constructor = MyDroneLeg;
 
- MyObject.prototype.initBuffers=function(){
+ MyDroneLeg.prototype.initBuffers=function(){
 
    var degToRad = Math.PI / 180.0;
    var n = 2*Math.PI / this.sides;
@@ -51,18 +51,18 @@
 	for(var i = 0; i < this.stacks+1; i++){
 		
 		var t = i / (this.stacks);
-		var x =(2.0*t*t*t - 3.0*t*t + 1.0) * p1x/5  
-         + (t*t*t - 2.0*t*t + t) * t1x/5
-         + (-2.0*t*t*t + 3.0*t*t) * p2x/5
-         + (t*t*t - t*t) * t2x/5;
-		var y =(2.0*t*t*t - 3.0*t*t + 1.0) * p1y/5  
-         + (t*t*t - 2.0*t*t + t) * t1y/5
-         + (-2.0*t*t*t + 3.0*t*t) * p2y/5
-         + (t*t*t - t*t) * t2y/5;
-		var z = (2.0*t*t*t - 3.0*t*t + 1.0) * p1z/5  
-         + (t*t*t - 2.0*t*t + t) * t1z/5
-         + (-2.0*t*t*t + 3.0*t*t) * p2z/5
-         + (t*t*t - t*t) * t2z/5;
+		var x =(2.0*t*t*t - 3.0*t*t + 1.0) * p1x  
+         + (t*t*t - 2.0*t*t + t) * t1x
+         + (-2.0*t*t*t + 3.0*t*t) * p2x
+         + (t*t*t - t*t) * t2x;
+		var y =(2.0*t*t*t - 3.0*t*t + 1.0) * p1y  
+         + (t*t*t - 2.0*t*t + t) * t1y
+         + (-2.0*t*t*t + 3.0*t*t) * p2y
+         + (t*t*t - t*t) * t2y;
+		var z = (2.0*t*t*t - 3.0*t*t + 1.0) * p1z  
+         + (t*t*t - 2.0*t*t + t) * t1z
+         + (-2.0*t*t*t + 3.0*t*t) * p2z
+         + (t*t*t - t*t) * t2z;
 
 
 		for(var q = 0; q < this.sides; q++)
@@ -93,3 +93,8 @@
 
 	this.initGLBuffers();
  }
+
+
+
+
+ 

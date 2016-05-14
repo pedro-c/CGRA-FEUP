@@ -18,6 +18,14 @@
  	this.helice2= new MyDroneHelice(scene,0);
  	this.helice3= new MyDroneHelice(scene,0);
  	this.helice4= new MyDroneHelice(scene,0);
+ 	this.leg1 = new MyDroneLeg(scene,20,20);
+ 	this.leg2 = new MyDroneLeg(scene,20,20);
+ 	this.leg3 = new MyDroneLeg(scene,20,20);
+ 	this.leg4 = new MyDroneLeg(scene,20,20);
+	this.legCylinder1 = new MyCylinder(scene);
+	this.legCylinder2 = new MyCylinder(scene);
+
+ 	this.cube = new MyUnitCube(scene);
 
 
 	this.x = x;
@@ -52,6 +60,8 @@
 	this.helice2.updateHeliceSpeed(-this.rotationSpeedN);
 	this.helice3.updateHeliceSpeed(this.rotationSpeedN);
 	this.helice4.updateHeliceSpeed(this.rotationSpeedN);
+
+
 
  	this.initBuffers();
  };
@@ -148,7 +158,58 @@
 		this.helice4.display();
 	this.scene.popMatrix();
 	
+	//Leg1
+	this.scene.pushMatrix();
+		this.scene.translate(1,-1,-0.25);
+		this.scene.scale(0.075,0.075,0.075);
+		this.scene.rotate(-90*degToRad,0,1,0);
+		this.leg1.display();
+	this.scene.popMatrix();
+	
+	//Leg2
+	this.scene.pushMatrix();
+		this.scene.translate(1,-1,0.25);
+		this.scene.scale(0.075,0.075,0.075);
+		this.scene.rotate(-90*degToRad,0,1,0);
+		this.leg2.display();
+	this.scene.popMatrix();
+	//Leg3
+	this.scene.pushMatrix();
+		this.scene.translate(-1,-1,-0.25);
+		this.scene.scale(0.075,0.075,0.075);
+		this.scene.rotate(90*degToRad,0,1,0);
+		this.leg3.display();
+	this.scene.popMatrix();
+	//Leg4
+	this.scene.pushMatrix();
+		this.scene.translate(-1,-1,0.25);
+		this.scene.scale(0.075,0.075,0.075);
+		this.scene.rotate(90*degToRad,0,1,0);
+		this.leg4.display();
+	this.scene.popMatrix();
 
+
+
+	this.scene.pushMatrix();
+		this.scene.translate(-1,-1,-0.5);
+		this.scene.scale(0.1,0.1,1);
+		this.legCylinder2.display();
+	this.scene.popMatrix();
+
+	this.scene.pushMatrix();
+		this.scene.translate(1,-1,-0.5);
+		this.scene.scale(0.1,0.1,1);
+		this.legCylinder1.display();
+	this.scene.popMatrix();
+	
+
+
+	//Leg's Base
+	this.scene.pushMatrix();
+		this.scene.translate(0,-0.2,0);
+		this.scene.scale(0.6,0.2,0.8);
+		this.cube.display();
+	this.scene.popMatrix();
 
 	this.primitiveType = this.scene.gl.TRIANGLES;
 
