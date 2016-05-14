@@ -38,6 +38,7 @@
 	this.maxInclination = 0.5;
 	this.inclinationSpeed = 0;
 	this.inclinationAccelaration = 0.020;
+	this.droneSpeed = 0;
 
  	this.initBuffers();
  };
@@ -136,26 +137,26 @@
 MyDrone.prototype.update = function(currTime) {
 	
 	if(this.rotation==1){
-		if(this.speed<=this.max_speed){
-			this.speed+=this.rotAcceleration;
+		if(this.speed<=this.max_speed*this.droneSpeed){
+			this.speed+=this.rotAcceleration*this.droneSpeed;
 		}else{
-			this.speed=this.max_speed;		
+			this.speed=this.max_speed*this.droneSpeed;		
 		}
 	}else if(this.rotation==3){
-		if(this.speed>=-this.max_speed){
-			this.speed-=this.rotAcceleration;
+		if(this.speed>=-this.max_speed*this.droneSpeed){
+			this.speed-=this.rotAcceleration*this.droneSpeed;
 		}else{
-			this.speed=-this.max_speed;
+			this.speed=-this.max_speed*this.droneSpeed;
 		}
 	}else if(this.rotation==2){
 		if(this.speed>0){
-			this.speed-=this.rotAcceleration;
+			this.speed-=this.rotAcceleration*this.droneSpeed;
 		}else{
 			this.speed=0;
 		}
 	}else if(this.rotation==4){
 		if(this.speed<0){
-			this.speed+=this.rotAcceleration;
+			this.speed+=this.rotAcceleration*this.droneSpeed;
 		}else{
 			this.speed=0;
 		}
@@ -163,78 +164,78 @@ MyDrone.prototype.update = function(currTime) {
 
 
 	if(this.movingFlag==1){
-		if(this.movingspeed<=this.max_movingSpeed){
-			this.movingspeed+=this.movAcceleration;		
+		if(this.movingspeed<=this.max_movingSpeed*this.droneSpeed){
+			this.movingspeed+=this.movAcceleration*this.droneSpeed;		
 		}else{
-			this.movingspeed=this.max_movingSpeed;		
+			this.movingspeed=this.max_movingSpeed*this.droneSpeed;		
 		}
 	}else if(this.movingFlag==2){
-		if(this.movingspeed>=-this.max_movingSpeed){
-			this.movingspeed-=this.movAcceleration;
+		if(this.movingspeed>=-this.max_movingSpeed*this.droneSpeed){
+			this.movingspeed-=this.movAcceleration*this.droneSpeed;
 		}else{
-			this.movingspeed=-this.max_movingSpeed;
+			this.movingspeed=-this.max_movingSpeed*this.droneSpeed;
 		}
 	}else if(this.movingFlag==3){
 		if(this.movingspeed>0){
-			this.movingspeed-=this.movAcceleration;
+			this.movingspeed-=this.movAcceleration*this.droneSpeed;
 		}else{
 			this.movingspeed=0;
 		}
 	}else if(this.movingFlag==4){
 		if(this.movingspeed<0){
-			this.movingspeed+=this.movAcceleration;
+			this.movingspeed+=this.movAcceleration*this.droneSpeed;
 		}else{
 			this.movingspeed=0;
 		}
 	}
 
 	if(this.levelFlag==1){
-		if(this.levelSpeed<=this.max_levelSpeed){
-			this.levelSpeed+=this.levelAceleration;
+		if(this.levelSpeed<=this.max_levelSpeed*this.droneSpeed){
+			this.levelSpeed+=this.levelAceleration*this.droneSpeed;
 		}else{
-			this.levelSpeed=this.max_levelSpeed;		
+			this.levelSpeed=this.max_levelSpeed*this.droneSpeed;		
 		}
 	}else if(this.levelFlag==3){
-		if(this.levelSpeed>=-this.max_levelSpeed){
-			this.levelSpeed-=this.levelAceleration;
+		if(this.levelSpeed>=-this.max_levelSpeed*this.droneSpeed){
+			this.levelSpeed-=this.levelAceleration*this.droneSpeed;
 		}else{
-			this.levelSpeed=-this.max_levelSpeed;
+			this.levelSpeed=-this.max_levelSpeed*this.droneSpeed;
 		}
 	}else if(this.levelFlag==2){
 		if(this.levelSpeed>0){
-			this.levelSpeed-=this.levelAceleration;
+			this.levelSpeed-=this.levelAceleration*this.droneSpeed;
 		}else{
 			this.levelSpeed=0;
 		}
 	}else if(this.levelFlag==4){
 		if(this.levelSpeed<0){
-			this.levelSpeed+=this.levelAceleration;
+			this.levelSpeed+=this.levelAceleration*this.droneSpeed;
 		}else{
 			this.levelSpeed=0;
 		}
 	}
 
 	if(this.movingFlag==1){
-		if(this.inclinationSpeed<=this.maxInclination){
-			this.inclinationSpeed+=this.inclinationAccelaration;		
+		if(this.inclinationSpeed<=this.maxInclination*this.droneSpeed){
+			this.inclinationSpeed+=this.inclinationAccelaration*this.droneSpeed;		
 		}else{
-			this.inclinationSpeed=this.maxInclination;		
+			this.inclinationSpeed=this.maxInclination*this.droneSpeed;		
 		}
 	}else if(this.movingFlag==2){
-		if(this.inclinationSpeed>=-this.maxInclination){
+		if(this.inclinationSpeed>=-this.maxInclination*this.droneSpeed){
 			this.inclinationSpeed-=this.inclinationAccelaration;	
 		}else{
-			this.inclinationSpeed=-this.maxInclination;
+			this.inclinationSpeed=-this.maxInclination*this.droneSpeed;
 		}
 	}else if(this.movingFlag==3){
 		if(this.inclinationSpeed>0){
-			this.inclinationSpeed-=this.inclinationAccelaration;
+			this.inclinationSpeed-=this.inclinationAccelaration*this.droneSpeed;
 		}else{
 			this.inclinationSpeed=0;
 		}
 	}else if(this.movingFlag==4){
 		if(this.inclinationSpeed<0){
-			this.inclinationSpeed+=this.inclinationAccelaration;
+			this.inclinationSpeed+=this.inclinationAccelaration*this.droneSpeed;
 		}else{
 			this.inclinationSpeed=0;
 		}
@@ -315,4 +316,9 @@ MyDrone.prototype.startMovingDown = function(currTime){
 MyDrone.prototype.stopMovingDown = function(currTime){
 	this.levelFlag=4;
 	
+}
+MyDrone.prototype.setDroneSpeed = function(speed){
+
+	this.droneSpeed=1+speed*2;
+
 }

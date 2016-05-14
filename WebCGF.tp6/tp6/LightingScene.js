@@ -18,9 +18,13 @@ LightingScene.prototype.constructor = LightingScene;
 LightingScene.prototype.init = function(application) {
 	CGFscene.prototype.init.call(this, application);
 
-	this.option1 = true;
-	this.option2 = false;
-	this.speed = 3;
+	this.luz0 = true;
+	this.luz1 = true;
+	this.luz2 = true;
+	this.luz3 = true;
+	this.luz4 = true;
+	this.clockMovement = true;
+	this.droneSpeed = 1;
 
 	this.initCameras();
 	this.enableTextures(true);
@@ -139,46 +143,25 @@ LightingScene.prototype.initLights = function() {
 	this.lights[3].setPosition(4, 6, 5, 1);
 	this.lights[3].setVisible(true);
 	
-	//this.lights[2].setPosition(10.5, 6.0, 5.0, 1.0);
-	//this.lights[1].setVisible(true); // show marker on light position (different from enabled)
-	//this.lights[3].setPosition(4, 6.0, 5.0, 1.0);
-	//this.lights[1].setVisible(true); // show marker on light position (different from enabled)
-
+	
 	this.lights[0].setAmbient(0, 0, 0, 1);
 	this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
 	this.lights[0].setSpecular(1,1,0,1);
-	this.lights[0].enable();
+	
 
 
 	this.lights[1].setAmbient(0, 0, 0, 1);
 	this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
 	this.lights[1].setSpecular(1,1,0,1);
-	this.lights[1].enable();
-/*
-	this.lights[2].setAmbient(0, 0, 0, 1);
-	this.lights[2].setDiffuse(1.0, 1.0, 1.0, 1.0);
-	this.lights[2].setSpecular(1,1,1,1);
-	this.lights[2].enable();
-	this.lights[2].setConstantAttenuation(0.0);
-	this.lights[2].setLinearAttenuation(1.0);
-	this.lights[2].setQuadraticAttenuation(0.0);
-
-	this.lights[3].setAmbient(0, 0, 0, 1);
-	this.lights[3].setDiffuse(1.0, 1.0, 1.0, 1.0);
-	this.lights[3].setSpecular(1,1,0,1);
-	this.lights[3].enable();
-	this.lights[3].setConstantAttenuation(0.0);
-	this.lights[3].setLinearAttenuation(0.0);
-	this.lights[3].setQuadraticAttenuation(1.0);
-*/
-
+	
 
 	this.lights[4].setPosition(0, 4, 7, 1);
 	this.lights[4].setVisible(true); 
 	this.lights[4].setAmbient(0.3, 0.3, 0.3, 1);
 	this.lights[4].setDiffuse(1.0, 1.0, 1.0, 1.0);
 	this.lights[4].setSpecular(1,1,1,1);
-	this.lights[4].enable();
+	
+
 
 };
 
@@ -193,14 +176,44 @@ LightingScene.prototype.update = function(currTime) {
 	var time = Math.floor(currTime/1000);
 
 
-	if(this.time == -1){
-		this.time = time;
-	}else
-	{
-		if(this.time != time){
+	if(this.clockMovement){
+		if(this.time == -1){
 			this.time = time;
-			this.clock.update();
+		}else
+		{
+			if(this.time != time){
+				this.time = time;
+				this.clock.update();
+			}
 		}
+	}
+	
+	this.drone.setDroneSpeed(this.droneSpeed/10);
+
+	if(this.luz0){
+		this.lights[0].enable();
+	}else{
+		this.lights[0].disable();
+	}
+	if(this.luz1){
+		this.lights[1].enable();
+	}else{
+		this.lights[1].disable();
+	}
+	if(this.luz2){
+		this.lights[2].enable();
+	}else{
+		this.lights[2].disable();
+	}
+	if(this.luz3){
+		this.lights[3].enable();
+	}else{
+		this.lights[3].disable();
+	}
+	if(this.luz4){
+		this.lights[4].enable();
+	}else{
+		this.lights[4].disable();
 	}
 
 	
