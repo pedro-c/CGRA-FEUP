@@ -1,11 +1,11 @@
 
 
 
- function MyDrone(scene, minS, maxS, minT, maxT) {
+ function MyDrone(scene, x,y,z,a,b,c) {
  	CGFobject.call(this,scene);
 
     this.scene = scene;
- 	
+     	
  	this.arm1 = new MyCylinder(scene);
  	this.arm2 = new MyCylinder(scene);
  	this.base1 = new MyCylinder(scene);
@@ -14,6 +14,30 @@
  	this.base4 = new MyCylinder(scene);
  	this.lamp = new MyLamp(scene,20,20);
  	this.leg1 = new MyDroneLeg(scene);
+
+
+	this.x = x;
+	this.y = y;
+	this.z = z;
+	this.a = a;
+	this.b = b;
+	this.c = c;
+ 	this.time = 0;
+ 	this.speed = 0;
+ 	this.movingspeed = 0;
+ 	this.movingFlag = 0;
+ 	this.rotation = 0;
+	this.max_speed = .2;
+	this.max_movingSpeed = 0.2;
+	this.rotAcceleration = 0.010;
+	this.movAcceleration = 0.010;
+	this.levelFlag = 0;
+	this.levelSpeed = 0;
+	this.levelAceleration = 0.010;
+	this.max_levelSpeed = 0.2;
+	this.maxInclination = 0.5;
+	this.inclinationSpeed = 0;
+	this.inclinationAccelaration = 0.020;
 
  	this.initBuffers();
  };
@@ -76,9 +100,9 @@
 	this.scene.pushMatrix();
 		this.leg1.display();
 	this.scene.popMatrix();
+	
 
-
-this.primitiveType = this.scene.gl.TRIANGLES;
+	this.primitiveType = this.scene.gl.TRIANGLES;
 
 
  }
@@ -108,21 +132,187 @@ this.primitiveType = this.scene.gl.TRIANGLES;
  };
 */
 
-Mydrone.prototype.moveDrone = function(){
-	this.scene.translate(this.x,this.y,this.z);
+
+MyDrone.prototype.update = function(currTime) {
+	
+	if(this.rotation==1){
+		if(this.speed<=this.max_speed){
+			this.speed+=this.rotAcceleration;
+		}else{
+			this.speed=this.max_speed;		
+		}
+	}else if(this.rotation==3){
+		if(this.speed>=-this.max_speed){
+			this.speed-=this.rotAcceleration;
+		}else{
+			this.speed=-this.max_speed;
+		}
+	}else if(this.rotation==2){
+		if(this.speed>0){
+			this.speed-=this.rotAcceleration;
+		}else{
+			this.speed=0;
+		}
+	}else if(this.rotation==4){
+		if(this.speed<0){
+			this.speed+=this.rotAcceleration;
+		}else{
+			this.speed=0;
+		}
+	}
+
+
+	if(this.movingFlag==1){
+		if(this.movingspeed<=this.max_movingSpeed){
+			this.movingspeed+=this.movAcceleration;		
+		}else{
+			this.movingspeed=this.max_movingSpeed;		
+		}
+	}else if(this.movingFlag==2){
+		if(this.movingspeed>=-this.max_movingSpeed){
+			this.movingspeed-=this.movAcceleration;
+		}else{
+			this.movingspeed=-this.max_movingSpeed;
+		}
+	}else if(this.movingFlag==3){
+		if(this.movingspeed>0){
+			this.movingspeed-=this.movAcceleration;
+		}else{
+			this.movingspeed=0;
+		}
+	}else if(this.movingFlag==4){
+		if(this.movingspeed<0){
+			this.movingspeed+=this.movAcceleration;
+		}else{
+			this.movingspeed=0;
+		}
+	}
+
+	if(this.levelFlag==1){
+		if(this.levelSpeed<=this.max_levelSpeed){
+			this.levelSpeed+=this.levelAceleration;
+		}else{
+			this.levelSpeed=this.max_levelSpeed;		
+		}
+	}else if(this.levelFlag==3){
+		if(this.levelSpeed>=-this.max_levelSpeed){
+			this.levelSpeed-=this.levelAceleration;
+		}else{
+			this.levelSpeed=-this.max_levelSpeed;
+		}
+	}else if(this.levelFlag==2){
+		if(this.levelSpeed>0){
+			this.levelSpeed-=this.levelAceleration;
+		}else{
+			this.levelSpeed=0;
+		}
+	}else if(this.levelFlag==4){
+		if(this.levelSpeed<0){
+			this.levelSpeed+=this.levelAceleration;
+		}else{
+			this.levelSpeed=0;
+		}
+	}
+
+	if(this.movingFlag==1){
+		if(this.inclinationSpeed<=this.maxInclination){
+			this.inclinationSpeed+=this.inclinationAccelaration;		
+		}else{
+			this.inclinationSpeed=this.maxInclination;		
+		}
+	}else if(this.movingFlag==2){
+		if(this.inclinationSpeed>=-this.maxInclination){
+			this.inclinationSpeed-=this.inclinationAccelaration;	
+		}else{
+			this.inclinationSpeed=-this.maxInclination;
+		}
+	}else if(this.movingFlag==3){
+		if(this.inclinationSpeed>0){
+			this.inclinationSpeed-=this.inclinationAccelaration;
+		}else{
+			this.inclinationSpeed=0;
+		}
+	}else if(this.movingFlag==4){
+		if(this.inclinationSpeed<0){
+			this.inclinationSpeed+=this.inclinationAccelaration;
+		}else{
+			this.inclinationSpeed=0;
+		}
+	}
+
+
+	var zvalue = Math.cos(this.b);
+	var xvalue = Math.sin(this.b);
+
+	
+
+	this.z+=zvalue*this.movingspeed;
+	this.x+=xvalue*this.movingspeed;
+	
+	this.y+=this.levelSpeed;
+
+	this.a=this.inclinationSpeed;
+
+	this.b+=this.speed;
+	this.time = currTime;
 }
-MyDrone.prototype.moveUp = function() {
 
+
+MyDrone.prototype.startRotateLeft = function(currTime){
+
+	this.rotation=1;
 }
 
-MyDrone.prototype.moveDown = function() {
-
+MyDrone.prototype.stopRotateLeft = function(){
+	this.rotation=2;
+		
 }
 
-MyDrone.prototype.moveUp = function() {
-
+MyDrone.prototype.startRotateRight = function(currTime){
+	this.rotation=3;
 }
 
-MyDrone.prototype.moveDown = function() {
+MyDrone.prototype.stopRotateRight = function(){
+	this.rotation=4;
+		
+}
 
+
+MyDrone.prototype.startMovingFoward = function(currTime){
+	this.movingFlag=1;
+}
+
+MyDrone.prototype.startMovingBackwards = function(currTime){
+	this.movingFlag=2;
+}
+
+MyDrone.prototype.stopMovingFoward = function(currTime){
+	
+	this.movingFlag=3;
+}
+
+MyDrone.prototype.stopMovingBackwards = function(currTime){
+	this.movingFlag=4;
+	
+}
+
+
+MyDrone.prototype.startMovingUp = function(currTime){
+	this.levelFlag=1;
+	
+}
+
+MyDrone.prototype.stopMovingUp = function(currTime){
+	this.levelFlag=2;
+	
+}
+
+MyDrone.prototype.startMovingDown = function(currTime){
+	this.levelFlag=3;
+	
+}
+
+MyDrone.prototype.stopMovingDown = function(currTime){
+	this.levelFlag=4;
+	
 }

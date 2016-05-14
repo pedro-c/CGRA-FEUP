@@ -72,48 +72,59 @@ MyInterface.prototype.processKeyboard = function(event) {
 	{
 		case (65): // 'A'
 		{
-		    //this.scene.drone.setAngle();
+		    this.scene.drone.startRotateLeft();
+		    this.scene.drone.update();
 		    break;
 		}
 
         case(97): // 'a'
 		{
+			this.scene.drone.startRotateLeft();
+			this.scene.drone.update();
 		    break;
 		}
 
 		case(68): // 'D'
 		{
+			this.scene.drone.startRotateRight();
 		    break;
 		}
 
 		case(100): // 'd'
 		{
+			this.scene.drone.startRotateRight();
 		    break;
 		}
 
 		case(87): // 'W'
 		{
+			this.scene.drone.startMovingFoward();
 		    break;
 		}
 
 		case(119): // 'w'
 		{
+			this.scene.drone.startMovingFoward();
 		    break;
 		}
 
 		case(83): // 'S'
 		{
+			this.scene.drone.startMovingBackwards();
 		    break;
 		}
 
 		case(115): // 's'
 		{
+			this.scene.drone.startMovingBackwards();
 		    break;
 		}
 
 	};
 };
+
 */
+
 
 MyInterface.prototype.processKeyDown = function(event) {
 	// call CGFinterface default code (omit if you want to override)
@@ -127,42 +138,72 @@ MyInterface.prototype.processKeyDown = function(event) {
 	{
 		case (65): // 'A'
 		{
-		    //this.scene.drone.setAngle();
+		    this.scene.drone.startRotateLeft();
+		    
 		    break;
 		}
 
         case(97): // 'a'
 		{
+			this.scene.drone.startRotateLeft();
+			
 		    break;
 		}
 
 		case(68): // 'D'
 		{
+			this.scene.drone.startRotateRight();
 		    break;
 		}
 
 		case(100): // 'd'
 		{
+			this.scene.drone.startRotateRight();
 		    break;
 		}
 
 		case(87): // 'W'
 		{
+			this.scene.drone.startMovingFoward();
 		    break;
 		}
 
 		case(119): // 'w'
 		{
+			this.scene.drone.startMovingFoward();
 		    break;
 		}
 
 		case(83): // 'S'
 		{
+			this.scene.drone.startMovingBackwards();
 		    break;
 		}
 
 		case(115): // 's'
 		{
+			this.scene.drone.startMovingBackwards();
+		    break;
+		}
+		case(69): // 'E'
+		{
+			this.scene.drone.startMovingUp();
+		    break;
+		}
+
+		case(101): // 'e'
+		{
+			this.scene.drone.startMovingUp();
+		    break;
+		}
+		case(81): // 'Q'
+		{
+			this.scene.drone.startMovingDown();
+		    break;
+		}
+		case(113): // 'q'
+		{
+			this.scene.drone.startMovingDown();
 		    break;
 		}
 
@@ -181,44 +222,74 @@ MyInterface.prototype.processKeyUp = function(event) {
 	{
 		case (65): // 'A'
 		{
-		    //this.scene.drone.setAngle();
+		    this.scene.drone.stopRotateLeft();
 		    break;
 		}
 
         case(97): // 'a'
 		{
+			this.scene.drone.stopRotateLeft();
 		    break;
 		}
 
 		case(68): // 'D'
 		{
+			this.scene.drone.stopRotateRight();
 		    break;
 		}
 
 		case(100): // 'd'
 		{
+			this.scene.drone.stopRotateRight();
 		    break;
 		}
 
 		case(87): // 'W'
 		{
+			this.scene.drone.stopMovingFoward();
 		    break;
 		}
 
 		case(119): // 'w'
 		{
+			this.scene.drone.stopMovingFoward();
 		    break;
 		}
 
 		case(83): // 'S'
 		{
+			this.scene.drone.stopMovingBackwards();
 		    break;
 		}
 
 		case(115): // 's'
 		{
+			this.scene.drone.stopMovingBackwards();
+		    break;
+		}
+
+		case(69): // 'E'
+		{
+			this.scene.drone.stopMovingUp();
+		    break;
+		}
+
+		case(101): // 'e'
+		{
+			this.scene.drone.stopMovingUp();
+		    break;
+		}
+		case(81): // 'Q'
+		{
+			this.scene.drone.stopMovingDown();
+		    break;
+		}
+		case(113): // 'q'
+		{
+			this.scene.drone.stopMovingDown();
 		    break;
 		}
 
 	};
 };
+

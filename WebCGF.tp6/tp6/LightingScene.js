@@ -45,7 +45,7 @@ LightingScene.prototype.init = function(application) {
 	this.cylinder = new MyCylinder(this, 20, 20);
 	this.lamp = new MyLamp(this,100,20);
 	this.clock = new MyClock(this,105,184.5,270);
-	this.drone = new MyDrone(this);
+	this.drone = new MyDrone(this,7.5, 4.3 ,7.5,0,0,0);
 
 	
 	this.boardA = new Plane(this, BOARD_A_DIVISIONS);
@@ -114,7 +114,7 @@ LightingScene.prototype.init = function(application) {
 	this.clockAppearance.setShininess(120);
 	this.clockAppearance.loadTexture("../resources/images/clock.png");
 
-	this.setUpdatePeriod(100);
+	this.setUpdatePeriod(20);
 
 };
 
@@ -189,6 +189,7 @@ LightingScene.prototype.updateLights = function() {
 
 LightingScene.prototype.update = function(currTime) {
 	
+	this.drone.update(currTime);
 	var time = Math.floor(currTime/1000);
 
 
@@ -201,6 +202,8 @@ LightingScene.prototype.update = function(currTime) {
 			this.clock.update();
 		}
 	}
+
+	
 
 }
 
@@ -252,12 +255,13 @@ LightingScene.prototype.display = function() {
 	
 	//Drone
 	this.pushMatrix();
-		
-		this.translate(7.5, 4.3 ,7.5);
-		//this.rotate(-160 * degToRad, 0, 1, 0);
-		this.drone.display();
-
+		this.translate(this.drone.x, this.drone.y,this.drone.z);
+		this.rotate(this.drone.b, 0,1,0);
+		this.rotate(this.drone.a, 1,0,0);
+		this.rotate(this.drone.c, 0,0,1);
+		this.drone.display()
 	this.popMatrix();
+
 
 
 	// Floor
