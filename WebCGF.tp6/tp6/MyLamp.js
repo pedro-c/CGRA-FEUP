@@ -38,6 +38,7 @@
 	this.vertices = [];
 	this.normals = [];
 	this.indices = [];
+	this.texCoords = [];
 	
 	for(var q = 0; q < this.stacks+1; q++){
 		
@@ -69,6 +70,16 @@
 
 	}
 
+	for(var q = 0; q < this.stacks+1; q++){
+		
+		for(var i = 0; i < sides; i++)
+		{
+			this.texCoords.push((1+Math.cos(i * n)*Math.cos(q *g))*0.5,(1+Math.sin(i * n)*Math.cos(q * g))*0.5);
+			
+
+		}
+
+	}
 
 	
 

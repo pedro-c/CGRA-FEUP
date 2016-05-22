@@ -1,8 +1,8 @@
 /**
- * MyDroneLeg
+ * MyDroneCable
  * @constructor
  */
- function MyDroneLeg(scene, slices, stacks) {
+ function MyDroneCable(scene, slices, stacks) {
  	CGFobject.call(this,scene);
 
 	//if slices not define, set to 6
@@ -14,13 +14,16 @@
 	this.slices = slices;
 	this.stacks = stacks;
 
+	this.t2y=5;
+	this.t2z=25
+
  	this.initBuffers();
  };
 
- MyDroneLeg.prototype = Object.create(CGFobject.prototype);
- MyDroneLeg.prototype.constructor = MyDroneLeg;
+ MyDroneCable.prototype = Object.create(CGFobject.prototype);
+ MyDroneCable.prototype.constructor = MyDroneCable;
 
- MyDroneLeg.prototype.initBuffers = function() {
+ MyDroneCable.prototype.initBuffers = function() {
  	/*
  	* TODO:
  	* Replace the following lines in order to build a prism with a **single mesh**.
@@ -38,7 +41,7 @@
 	this.vertices = [];
 	this.normals = [];
 	this.indices = [];
-	this.texCoords =[];
+
 	var p1y = 0;
 	var p1z = 0;
 	var p1x = 0;
@@ -54,10 +57,12 @@
 	var t2y = 5;
 	var t2z = 25;
 	var t2x = 0;
+
+
 	
 	for(var q = 0; q < this.stacks+1; q++){
 		
-		var z1 = (q/this.stacks);
+		var z = (q/this.stacks);
 
 		//hermite curve divided in its 3 variables
 		var t = q / (this.stacks);
@@ -74,20 +79,18 @@
          + (-2.0*t*t*t + 3.0*t*t) * p2z
          + (t*t*t - t*t) * t2z;
 
+
 		for(var i = 0; i < sides/2; i++)
 		{
 			this.vertices.push(Math.cos(i * n)+x,Math.sin(i * n)+y, z);
 			this.normals.push(Math.cos(i * n)+x,Math.sin(i * n)+y, 0);
-			this.texCoords.push(0.5*i/sides,0.5*i/sides,0);
-			this.texCoords.push(0.5*i/sides,0.5*i/sides,z);
 		}
 		for(var i = sides/2; i < sides; i++)
 		{
 			this.vertices.push(Math.cos(i * n)+x,Math.sin(i * n)+y, z+1);
 			this.normals.push(Math.cos(i * n)+x,Math.sin(i * n)+y, 0);
-			this.texCoords.push(0.5*i/sides,0.5*i/sides,0);
-			this.texCoords.push(0.5*i/sides,0.5*i/sides,z);
 		}
+
 
 	}
 
@@ -115,3 +118,10 @@
  	this.initGLBuffers();
  };
 
+	MyDroneCable.prototype.increaseDegree = function(){
+
+	
+	};
+	MyDroneCable.prototype.decreaseDegree = function(){
+
+	};

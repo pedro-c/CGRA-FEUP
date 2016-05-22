@@ -33,6 +33,7 @@ MyInterface.prototype.init = function(application) {
 	
 
 	// add a group of controls (and open/expand by defult)
+
 	
 	var group=this.gui.addFolder("Luzes");
 	group.open();
@@ -55,7 +56,8 @@ MyInterface.prototype.init = function(application) {
 	this.gui.add(this.scene, 'clockMovement');
 	this.gui.add(this.scene, 'droneSpeed', 0, 5);
 	this.gui.add(this.scene, 'heliceRotationFactor', 0, 2);
-
+	this.gui.add(this.scene, 'currTexture', { camo1: 0, camo2: 1, yellow: 2} );
+	
 	return true;
 };
 
@@ -63,6 +65,43 @@ MyInterface.prototype.init = function(application) {
  * processKeyboard
  * @param event {Event}
  */
+
+
+MyInterface.prototype.processKeyboard = function(event) {
+ 	// call CGFinterface default code (omit if you want to override)
+ 	CGFinterface.prototype.processKeyboard.call(this,event);
+ 	
+ 	// Check key codes e.g. here: http://www.asciitable.com/
+ 	// or use String.fromCharCode(event.keyCode) to compare chars
+ 	
+ 	// for better cross-browser support, you may also check suggestions on using event.which in http://www.w3schools.com/jsref/event_key_keycode.asp
+ 	switch (event.keyCode)
+ 	{
+		case(88): //'X'
+		{
+			this.scene.drone.dropCable();
+			break;
+		}
+		case(120): // 'x'
+		{
+			this.scene.drone.dropCable();
+			break;
+		}
+		case(67): //'C'
+		{
+			this.scene.drone.liftCable();
+			break;
+		}
+		case(99): // 'c'
+		{
+			this.scene.drone.liftCable();
+			break;
+		}
+
+		
+
+	};
+};
 
 MyInterface.prototype.processKeyDown = function(event) {
 	// call CGFinterface default code (omit if you want to override)
@@ -144,6 +183,12 @@ MyInterface.prototype.processKeyDown = function(event) {
 			this.scene.drone.startMovingDown();
 		    break;
 		}
+		case(113): // 'q'
+		{
+			this.scene.drone.startMovingDown();
+		    break;
+		}
+
 
 	};
 };
@@ -230,4 +275,3 @@ MyInterface.prototype.processKeyUp = function(event) {
 
 	};
 };
-

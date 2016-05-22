@@ -17,7 +17,9 @@ LightingScene.prototype.constructor = LightingScene;
 
 LightingScene.prototype.init = function(application) {
 	CGFscene.prototype.init.call(this, application);
+	
 
+	this.textFlag=true;
 	this.luz0 = true;
 	this.luz1 = true;
 	this.luz2 = true;
@@ -29,6 +31,14 @@ LightingScene.prototype.init = function(application) {
 
 	this.initCameras();
 	this.enableTextures(true);
+
+	this.camo1="../resources/images/camo1.jpg";
+	this.camo2="../resources/images/camo2.png";
+	this.yellow="../resources/images/yellow.png";
+
+	this.textures = [this.camo1,this.camo2,this.yellow];
+	this.currTexture = 0;
+	this.textI=1;
 
 	this.initLights();
 
@@ -119,6 +129,13 @@ LightingScene.prototype.init = function(application) {
 	this.clockAppearance.setShininess(120);
 	this.clockAppearance.loadTexture("../resources/images/clock.png");
 
+	this.droneAppearance = new CGFappearance(this);
+	this.droneAppearance.setAmbient(0.3,0.3,0.3,1);
+	this.droneAppearance.setDiffuse(0.7,0.7,0.7,1);
+	this.droneAppearance.setSpecular(0.5,0.5,0.5,1);	
+	this.droneAppearance.setShininess(120);
+	this.droneAppearance.loadTexture(this.textures[1]);
+
 	this.setUpdatePeriod(20);
 
 };
@@ -171,12 +188,22 @@ LightingScene.prototype.updateLights = function() {
 		this.lights[i].update();
 }
 
+
 LightingScene.prototype.update = function(currTime) {
 	
 	this.drone.update(currTime);
 	
+	if(this.textI != this.currTexture){
+		this.textFlag=true;
+		this.textI=this.currTexture;
+	}
+		
+	if(this.textFlag){
+		this.droneAppearance.loadTexture(this.textures[this.currTexture]);
+		this.textFlag=false;
+	}
 	
-
+	
 	var time = Math.floor(currTime/1000);
 
 
@@ -265,18 +292,17 @@ LightingScene.prototype.display = function() {
 		this.wall.display();
 	this.popMatrix();
 	
-	
 	//Drone
 	this.pushMatrix();
 		this.translate(this.drone.x, this.drone.y,this.drone.z);
 		this.rotate(this.drone.b, 0,1,0);
 		this.rotate(this.drone.a, 1,0,0);
 		this.rotate(this.drone.c, 0,0,1);
-		this.drone.display()
+		this.droneAppearance.apply();
+		this.drone.display();
 	this.popMatrix();
 
-
-
+	
 	// Floor
 	this.pushMatrix();
 		this.translate(7.5, 0, 7.5);
@@ -346,11 +372,9 @@ LightingScene.prototype.display = function() {
 
 	//Clock
 	this.pushMatrix();
-		
 		this.scale(1,1,0.2);
 		this.translate(7.5,7,1);
 		this.rotate(180 * degToRad, 0 , 0, -1);
-		
 		this.clockAppearance.apply();
 		this.clock.display();
 	this.popMatrix();

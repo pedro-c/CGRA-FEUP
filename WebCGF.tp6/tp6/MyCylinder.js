@@ -38,6 +38,7 @@
 	this.vertices = [];
 	this.normals = [];
 	this.indices = [];
+	this.texCoords = [];
 	
 	for(var q = 0; q < this.stacks+1; q++){
 		
@@ -47,6 +48,8 @@
 		{
 			this.vertices.push(Math.cos(i * n),Math.sin(i * n), z);
 			this.normals.push(Math.cos(i * n),Math.sin(i * n), 0);
+			this.texCoords.push(0.5*i/sides,0.5*i/sides,0);
+			this.texCoords.push(0.5*i/sides,0.5*i/sides,z);
 		}
 
 	}
@@ -62,6 +65,7 @@
 			else {
 				this.indices.push(this.slices*q,this.slices*q+i+1,this.slices*q+i);
 			}
+
 			
 		}
 
