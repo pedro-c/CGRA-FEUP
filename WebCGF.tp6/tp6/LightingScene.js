@@ -25,6 +25,7 @@ LightingScene.prototype.init = function(application) {
 	this.luz2 = true;
 	this.luz3 = true;
 	this.luz4 = true;
+	this.luz5 = true;
 	this.clockMovement = true;
 	this.droneSpeed = 1;
 	this.heliceRotationFactor = 1;
@@ -202,6 +203,12 @@ LightingScene.prototype.initLights = function() {
 	this.lights[4].setAmbient(0.3, 0.3, 0.3, 1);
 	this.lights[4].setDiffuse(1.0, 1.0, 1.0, 1.0);
 	this.lights[4].setSpecular(1,1,1,1);
+
+	this.lights[5].setPosition(8.5,7,7,1);
+	this.lights[5].setVisible(true); 
+	this.lights[5].setAmbient(0, 0, 0, 1);
+	this.lights[5].setDiffuse(1.0, 1.0, 1.0, 1.0);
+	this.lights[5].setSpecular(1,1,1,1);
 	
 
 
@@ -271,6 +278,11 @@ LightingScene.prototype.update = function(currTime) {
 		this.lights[4].enable();
 	}else{
 		this.lights[4].disable();
+	}
+	if(this.luz5){
+		this.lights[5].enable();
+	}else{
+		this.lights[5].disable();
 	}
 
 	if(this.cargo.x > this.dropSite.x-0.2 && this.cargo.x < this.dropSite.x+0.2){
@@ -354,6 +366,14 @@ LightingScene.prototype.display = function() {
 		this.scale(15, 8, 0.2);
 		this.wall.display();
 	this.popMatrix();
+
+		//lamp
+	this.pushMatrix();
+		this.translate(8.5,7,7);
+		this.rotate(90 * degToRad, -1, 0, 0);
+		this.lamp.display();
+	this.popMatrix();
+
 	
 	//Cargo
 	this.pushMatrix();
@@ -471,12 +491,6 @@ LightingScene.prototype.display = function() {
 	this.popMatrix();
 	*/
 
-	//lamp
-	this.pushMatrix();
-		this.translate(8.5,7,7);
-		this.rotate(90 * degToRad, -1, 0, 0);
-		this.lamp.display();
-	this.popMatrix();
 
 
 

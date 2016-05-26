@@ -46,6 +46,7 @@ MyInterface.prototype.init = function(application) {
 	group.add(this.scene, 'luz2');
 	group.add(this.scene, 'luz3');
 	group.add(this.scene, 'luz4');
+	group.add(this.scene, 'luz5');
 	
 	
 	// add a slidere
