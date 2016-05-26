@@ -30,6 +30,7 @@ LightingScene.prototype.init = function(application) {
 	this.heliceRotationFactor = 1;
 	this.cargoFlag=0;
 	this.dropFlag=0;
+	this.textureFlag=0;
 
 	this.initCameras();
 	this.enableTextures(true);
@@ -145,6 +146,19 @@ LightingScene.prototype.init = function(application) {
 	this.droneAppearance.setShininess(120);
 	this.droneAppearance.loadTexture(this.textures[1]);
 
+	this.xAppearance = new CGFappearance(this);
+	this.xAppearance.setAmbient(0.3,0.3,0.3,1);
+	this.xAppearance.setDiffuse(0.7,0.7,0.7,1);
+	this.xAppearance.setSpecular(0.5,0.5,0.5,1);	
+	this.xAppearance.setShininess(120);
+	this.xAppearance.loadTexture("../resources/images/x.png");
+
+	this.boxAppearance = new CGFappearance(this);
+	this.boxAppearance.setAmbient(0.3,0.3,0.3,1);
+	this.boxAppearance.setDiffuse(0.7,0.7,0.7,1);
+	this.boxAppearance.setSpecular(0.5,0.5,0.5,1);	
+	this.boxAppearance.setShininess(120);
+	this.boxAppearance.loadTexture("../resources/images/box1.png");
 
 	this.setUpdatePeriod(20);
 
@@ -260,18 +274,23 @@ LightingScene.prototype.update = function(currTime) {
 	}
 
 	if(this.cargo.x > this.dropSite.x-0.2 && this.cargo.x < this.dropSite.x+0.2){
-		if(this.cargo.y > this.dropSite.y-0.2+1 && this.cargo.y < this.dropSite.y+0.2+1){
+		if(this.cargo.y > this.dropSite.y-0.2+0.5 && this.cargo.y < this.dropSite.y+0.2+0.5){
 			if(this.cargo.z > this.dropSite.z-0.2 && this.cargo.z < this.dropSite.z+0.2){
 				this.dropFlag=1;
-				
+				if(this.textureFlag==1)
+					this.boxAppearance.loadTexture("../resources/images/box1.png");
+				this.textureFlag=0;
 			}
 		}
 	}
-	if(this.cargo.x > this.drone.x-0.2 && this.cargo.x < this.drone.x+0.2){
-		if(this.cargo.y > this.drone.y-0.2-this.droneCable.length-0.9 && this.cargo.y < this.drone.y+0.2-this.droneCable.length-0.9){
+
+	else if(this.cargo.x > this.drone.x-0.2 && this.cargo.x < this.drone.x+0.2){
+		if(this.cargo.y > this.drone.y-0.2-this.droneCable.length-0.8 && this.cargo.y < this.drone.y+0.2-this.droneCable.length-0.8){
 			if(this.cargo.z > this.drone.z-0.2 && this.cargo.z < this.drone.z+0.2){
 				this.cargoFlag=1;
-				
+				if(this.textureFlag==0)
+					this.boxAppearance.loadTexture("../resources/images/box2.png");
+				this.textureFlag=1;
 			}
 		}
 	}
@@ -329,13 +348,20 @@ LightingScene.prototype.display = function() {
 
 	// ---- BEGIN Primitive drawing section
 
-
+	// Plane Wall
+	this.pushMatrix();
+		this.translate(7.5, 4, 0);
+		this.scale(15, 8, 0.2);
+		this.wall.display();
+	this.popMatrix();
+	
 	//Cargo
 	this.pushMatrix();
 		this.translate(this.cargo.x, this.cargo.y,this.cargo.z);
 		this.rotate(this.cargo.b, 0,1,0);
 		this.rotate(this.cargo.a, 1,0,0);
 		this.rotate(this.cargo.c, 0,0,1);
+		this.boxAppearance.apply();
 		this.cargo.display();
 	this.popMatrix();
 
@@ -346,16 +372,11 @@ LightingScene.prototype.display = function() {
 		this.rotate(this.dropSite.b, 0,1,0);
 		this.rotate(this.dropSite.a, 1,0,0);
 		this.rotate(this.dropSite.c, 0,0,1);
+		this.xAppearance.apply();
 		this.dropSite.display();
 	this.popMatrix();
 
-	// Plane Wall
-	this.pushMatrix();
-		this.translate(7.5, 4, 0);
-		this.scale(15, 8, 0.2);
-		this.wall.display();
-	this.popMatrix();
-	
+
 	//Drone
 	this.pushMatrix();
 		this.translate(this.drone.x, this.drone.y,this.drone.z);
@@ -440,14 +461,15 @@ LightingScene.prototype.display = function() {
 		this.boardB.display();
 	this.popMatrix();
 
+	/*
 	//cylinder
-	
 	this.pushMatrix();
 		this.translate(8.5,0,13);
 		this.scale(1, 5, 1);
 		this.rotate(90 * degToRad, -1, 0, 0);
 		this.cylinder.display();
 	this.popMatrix();
+	*/
 
 	//lamp
 	this.pushMatrix();
