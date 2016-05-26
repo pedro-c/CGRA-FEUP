@@ -54,8 +54,8 @@
 	this.rotationSpeedL = 0.2;
 	this.rotationSpeedN = 1;
 	this.rotationSpeedR = 10;
-	this.cableLength = 0;
-	this.maxCableLength = 5;
+
+
 
 
 	this.helice1.updateHeliceSpeed(-this.rotationSpeedN);
@@ -122,11 +122,6 @@
 		this.scene.scale(0.15,0.15,0.5);
 		this.base3.display();
 	this.scene.popMatrix();
-
-	this.scene.pushMatrix();
-		//this.leg1.display();
-	this.scene.popMatrix();
-
 
    	//Drone Hélice 1 - esquerda
 
@@ -213,12 +208,6 @@
 		this.cube.display();
 	this.scene.popMatrix();
 
-	//Drone Cabel
-	this.scene.pushMatrix();
-		this.scene.scale(0.05,this.cableLength,0.05);
-		this.scene.rotate(90*degToRad,1,0,0);
-		this.cable.display();
-	this.scene.popMatrix();
 
 	this.primitiveType = this.scene.gl.TRIANGLES;
 
@@ -478,18 +467,3 @@ MyDrone.prototype.setHeliceRotationFactor = function(factor){
 	this.helice4.setFactor(factor);
 
 }
-
-MyDrone.prototype.dropCable = function(){
-	if(this.cableLength < this.maxCableLength){
-		this.cableLength+=0.1;
-	}
-
-
-MyDrone.prototype.liftCable = function(){
-	if(this.cableLength > 0){
-		this.cableLength-=0.1;
-	}
-}
-
-}
-

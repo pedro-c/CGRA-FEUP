@@ -22,7 +22,9 @@ serialInclude([
     'MyDroneHelice.js',
     'MyDroneLeg.js',
     'MyDroneCable.js',
-
+    'MyDroneHook.js',
+    'MyCargo.js',
+	'MyDropSite.js',
 	main=function() {
 		var app = new CGFapplication(document.body);
 		var myScene = new LightingScene();

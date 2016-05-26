@@ -48,7 +48,7 @@ MyInterface.prototype.init = function(application) {
 	group.add(this.scene, 'luz4');
 	
 	
-	// add a slider
+	// add a slidere
 	// must be a numeric variable of the scene, initialized in scene.init e.g.
 	// this.speed=3;
 	// min and max values can be specified as parameters
@@ -56,11 +56,10 @@ MyInterface.prototype.init = function(application) {
 	this.gui.add(this.scene, 'clockMovement');
 	this.gui.add(this.scene, 'droneSpeed', 0, 5);
 	this.gui.add(this.scene, 'heliceRotationFactor', 0, 2);
-	this.gui.add(this.scene, 'currTexture', { camo1: 0, camo2: 1, yellow: 2} );
+	this.gui.add(this.scene, 'currTexture', { camo1: 0, camo2: 1, yellow: 2, homer: 3, boss: 4, AS: 5} );
 	
 	return true;
 };
-
 /**
  * processKeyboard
  * @param event {Event}
@@ -77,24 +76,24 @@ MyInterface.prototype.processKeyboard = function(event) {
  	// for better cross-browser support, you may also check suggestions on using event.which in http://www.w3schools.com/jsref/event_key_keycode.asp
  	switch (event.keyCode)
  	{
-		case(88): //'X'
+		case(76): //'L'
 		{
-			this.scene.drone.dropCable();
+			this.scene.droneCable.dropCable();
 			break;
 		}
-		case(120): // 'x'
+		case(108): // 'l'
 		{
-			this.scene.drone.dropCable();
+			this.scene.droneCable.dropCable();
 			break;
 		}
-		case(67): //'C'
+		case(80): //'P'
 		{
-			this.scene.drone.liftCable();
+			this.scene.droneCable.liftCable();
 			break;
 		}
-		case(99): // 'c'
+		case(112): // 'p'
 		{
-			this.scene.drone.liftCable();
+			this.scene.droneCable.liftCable();
 			break;
 		}
 

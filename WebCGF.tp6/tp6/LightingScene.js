@@ -28,16 +28,21 @@ LightingScene.prototype.init = function(application) {
 	this.clockMovement = true;
 	this.droneSpeed = 1;
 	this.heliceRotationFactor = 1;
+	this.cargoFlag=0;
+	this.dropFlag=0;
 
 	this.initCameras();
 	this.enableTextures(true);
 
 	this.camo1="../resources/images/camo1.jpg";
-	this.camo2="../resources/images/camo2.png";
+	this.camo2="../resources/images/camo2png";
 	this.yellow="../resources/images/yellow.png";
+	this.homer = "../resources/images/homer.png";
+	this.boss = "../resources/images/boss.png";
+	this.AS = "../resources/images/aas.png";
 
-	this.textures = [this.camo1,this.camo2,this.yellow];
-	this.currTexture = 0;
+	this.textures = [this.camo1,this.camo2,this.yellow, this.homer, this.boss, this.AS];
+	this.currTexture = 3;
 	this.textI=1;
 
 	this.initLights();
@@ -61,6 +66,10 @@ LightingScene.prototype.init = function(application) {
 	this.lamp = new MyLamp(this,100,20);
 	this.clock = new MyClock(this,105,184.5,270);
 	this.drone = new MyDrone(this,7.5, 4.3 ,7.5,0,0,0);
+	this.droneCable = new MyDroneCable(this);
+	this.droneHook = new MyDroneHook(this,30,30);
+	this.cargo = new MyCargo(this);
+	this.dropSite = new MyDropSite(this);
 
 	
 	this.boardA = new Plane(this, BOARD_A_DIVISIONS);
@@ -136,6 +145,7 @@ LightingScene.prototype.init = function(application) {
 	this.droneAppearance.setShininess(120);
 	this.droneAppearance.loadTexture(this.textures[1]);
 
+
 	this.setUpdatePeriod(20);
 
 };
@@ -192,6 +202,7 @@ LightingScene.prototype.updateLights = function() {
 LightingScene.prototype.update = function(currTime) {
 	
 	this.drone.update(currTime);
+	this.droneCable.update(currTime);
 	
 	if(this.textI != this.currTexture){
 		this.textFlag=true;
@@ -217,6 +228,7 @@ LightingScene.prototype.update = function(currTime) {
 				this.clock.update();
 			}
 		}
+		
 	}
 	
 	this.drone.setDroneSpeed(this.droneSpeed/10);
@@ -247,7 +259,40 @@ LightingScene.prototype.update = function(currTime) {
 		this.lights[4].disable();
 	}
 
+	if(this.cargo.x > this.dropSite.x-0.2 && this.cargo.x < this.dropSite.x+0.2){
+		if(this.cargo.y > this.dropSite.y-0.2+1 && this.cargo.y < this.dropSite.y+0.2+1){
+			if(this.cargo.z > this.dropSite.z-0.2 && this.cargo.z < this.dropSite.z+0.2){
+				this.dropFlag=1;
+				
+			}
+		}
+	}
+	if(this.cargo.x > this.drone.x-0.2 && this.cargo.x < this.drone.x+0.2){
+		if(this.cargo.y > this.drone.y-0.2-this.droneCable.length-0.9 && this.cargo.y < this.drone.y+0.2-this.droneCable.length-0.9){
+			if(this.cargo.z > this.drone.z-0.2 && this.cargo.z < this.drone.z+0.2){
+				this.cargoFlag=1;
+				
+			}
+		}
+	}
 	
+
+
+	if(this.cargoFlag==1 && this.dropFlag==0){
+		this.cargo.x=this.drone.x;
+		this.cargo.y=this.drone.y-this.droneCable.length-0.9;
+		this.cargo.z=this.drone.z;
+		
+		this.cargo.b=this.drone.b;
+
+	}
+	if(this.dropFlag==1){
+		this.cargo.x=this.dropSite.x;
+		this.cargo.y=this.dropSite.y+0.5;
+		this.cargo.z=this.dropSite.z;
+	}
+
+
 	this.drone.setHeliceRotationFactor(this.heliceRotationFactor);
 }
 
@@ -285,6 +330,25 @@ LightingScene.prototype.display = function() {
 	// ---- BEGIN Primitive drawing section
 
 
+	//Cargo
+	this.pushMatrix();
+		this.translate(this.cargo.x, this.cargo.y,this.cargo.z);
+		this.rotate(this.cargo.b, 0,1,0);
+		this.rotate(this.cargo.a, 1,0,0);
+		this.rotate(this.cargo.c, 0,0,1);
+		this.cargo.display();
+	this.popMatrix();
+
+	//Drop Site
+
+	this.pushMatrix();
+		this.translate(this.dropSite.x,this.dropSite.y,this.dropSite.z);
+		this.rotate(this.dropSite.b, 0,1,0);
+		this.rotate(this.dropSite.a, 1,0,0);
+		this.rotate(this.dropSite.c, 0,0,1);
+		this.dropSite.display();
+	this.popMatrix();
+
 	// Plane Wall
 	this.pushMatrix();
 		this.translate(7.5, 4, 0);
@@ -301,6 +365,29 @@ LightingScene.prototype.display = function() {
 		this.droneAppearance.apply();
 		this.drone.display();
 	this.popMatrix();
+
+	//Drone Cable
+	this.pushMatrix();
+		this.translate(this.drone.x, this.drone.y,this.drone.z);
+		this.scale(0.05,this.droneCable.length,0.05);
+		this.rotate(90*degToRad,1,0,0);
+		this.droneAppearance.apply();
+		this.droneCable.display();
+	this.popMatrix();
+
+	//Drone Hook
+	this.pushMatrix();
+		this.translate(this.drone.x, this.drone.y-this.droneCable.length,this.drone.z);
+		this.scale(0.05,0.05,0.05);
+		this.rotate(this.drone.b, 0,1,0);
+		this.rotate(this.drone.a, 1,0,0);
+		this.rotate(this.drone.c, 0,0,1);
+		this.rotate(180*degToRad,1,0,0);
+		this.rotate(180*degToRad,0,1,0);
+		this.droneAppearance.apply();
+		this.droneHook.display();
+	this.popMatrix();
+
 
 	
 	// Floor
@@ -354,6 +441,7 @@ LightingScene.prototype.display = function() {
 	this.popMatrix();
 
 	//cylinder
+	
 	this.pushMatrix();
 		this.translate(8.5,0,13);
 		this.scale(1, 5, 1);

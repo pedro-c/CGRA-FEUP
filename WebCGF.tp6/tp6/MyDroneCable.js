@@ -17,6 +17,10 @@
 	this.t2y=5;
 	this.t2z=25
 
+	this.maxCableLength = 5;
+
+	this.length = 0;
+
  	this.initBuffers();
  };
 
@@ -41,22 +45,7 @@
 	this.vertices = [];
 	this.normals = [];
 	this.indices = [];
-
-	var p1y = 0;
-	var p1z = 0;
-	var p1x = 0;
-
-	var t1y = 5;
-	var t1z = 0;
-	var t1x = 0;
-
-	var p2y = 10;
-	var p2z = 10;
-	var p2x = 0;
-	
-	var t2y = 5;
-	var t2z = 25;
-	var t2x = 0;
+	this.texCoords = [];
 
 
 	
@@ -64,31 +53,14 @@
 		
 		var z = (q/this.stacks);
 
-		//hermite curve divided in its 3 variables
-		var t = q / (this.stacks);
-		var x =(2.0*t*t*t - 3.0*t*t + 1.0) * p1x  
-         + (t*t*t - 2.0*t*t + t) * t1x
-         + (-2.0*t*t*t + 3.0*t*t) * p2x
-         + (t*t*t - t*t) * t2x;
-		var y =(2.0*t*t*t - 3.0*t*t + 1.0) * p1y  
-         + (t*t*t - 2.0*t*t + t) * t1y
-         + (-2.0*t*t*t + 3.0*t*t) * p2y
-         + (t*t*t - t*t) * t2y;
-		var z = (2.0*t*t*t - 3.0*t*t + 1.0) * p1z  
-         + (t*t*t - 2.0*t*t + t) * t1z
-         + (-2.0*t*t*t + 3.0*t*t) * p2z
-         + (t*t*t - t*t) * t2z;
 
 
-		for(var i = 0; i < sides/2; i++)
+		for(var i = 0; i < sides; i++)
 		{
-			this.vertices.push(Math.cos(i * n)+x,Math.sin(i * n)+y, z);
-			this.normals.push(Math.cos(i * n)+x,Math.sin(i * n)+y, 0);
-		}
-		for(var i = sides/2; i < sides; i++)
-		{
-			this.vertices.push(Math.cos(i * n)+x,Math.sin(i * n)+y, z+1);
-			this.normals.push(Math.cos(i * n)+x,Math.sin(i * n)+y, 0);
+			this.vertices.push(Math.cos(i * n),Math.sin(i * n), z);
+			this.normals.push(Math.cos(i * n),Math.sin(i * n), 0);
+			this.texCoords.push(0.5*i/sides,0.5*i/sides,0);
+			this.texCoords.push(0.5*i/sides,0.5*i/sides,z);
 		}
 
 
@@ -125,3 +97,19 @@
 	MyDroneCable.prototype.decreaseDegree = function(){
 
 	};
+
+
+
+MyDroneCable.prototype.dropCable = function(){
+	if(this.length < this.maxCableLength){
+		this.length+=0.1;
+	}
+}
+
+MyDroneCable.prototype.liftCable = function(){
+	if(this.length > 0){
+		this.length-=0.1;
+	}
+}
+
+MyDroneCable.prototype.update = function(currTime) {}
