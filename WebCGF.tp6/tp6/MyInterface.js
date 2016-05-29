@@ -57,7 +57,7 @@ MyInterface.prototype.init = function(application) {
 	this.gui.add(this.scene, 'clockMovement');
 	this.gui.add(this.scene, 'droneSpeed', 0, 5);
 	this.gui.add(this.scene, 'heliceRotationFactor', 0, 2);
-	this.gui.add(this.scene, 'currTexture', { camo1: 0, camo2: 1, yellow: 2, homer: 3, boss: 4, AS: 5} );
+	this.gui.add(this.scene, 'currTexture', { camo1: 0, camo2: 1, yellow: 2, homer: 3, AS: 4} );
 	
 	return true;
 };

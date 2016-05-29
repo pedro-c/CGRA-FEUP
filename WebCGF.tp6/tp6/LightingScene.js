@@ -37,13 +37,12 @@ LightingScene.prototype.init = function(application) {
 	this.enableTextures(true);
 
 	this.camo1="../resources/images/camo1.jpg";
-	this.camo2="../resources/images/camo2png";
+	this.camo2="../resources/images/camo2.png";
 	this.yellow="../resources/images/yellow.png";
 	this.homer = "../resources/images/homer.png";
-	this.boss = "../resources/images/boss.png";
 	this.AS = "../resources/images/aas.png";
 
-	this.textures = [this.camo1,this.camo2,this.yellow, this.homer, this.boss, this.AS];
+	this.textures = [this.camo1,this.camo2,this.yellow, this.homer, this.AS];
 	this.currTexture = 3;
 	this.textI=1;
 
