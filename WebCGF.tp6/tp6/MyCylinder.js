@@ -59,11 +59,14 @@
 		for(var i = 0; i < sides; i++)
 		{
 			this.indices.push(this.slices*q+i,this.slices*q+i+1,this.slices*(q+1)+i);
+			this.indices.push(this.slices*q+i+1,this.slices*q+i,this.slices*(q+1)+i);
 			if (i != (this.slices - 1)) {
 				this.indices.push(this.slices*(q+1)+i+1,this.slices*(q+1)+i,this.slices*q+i+1);
+				this.indices.push(this.slices*(q+1)+i,this.slices*(q+1)+i+1,this.slices*q+i+1);
 			}
 			else {
 				this.indices.push(this.slices*q,this.slices*q+i+1,this.slices*q+i);
+				this.indices.push(this.slices*q+i+1,this.slices*q,this.slices*q+i);
 			}
 
 			

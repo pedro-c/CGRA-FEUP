@@ -5,7 +5,6 @@
  	CGFobject.call(this,scene);
 
     this.scene = scene;
-     	
  	this.arm1 = new MyCylinder(scene);
  	this.arm2 = new MyCylinder(scene);
  	this.base1 = new MyCylinder(scene);
@@ -354,6 +353,14 @@ MyDrone.prototype.startRotateLeft = function(currTime){
 	this.helice2.updateHeliceSpeed(-this.rotationSpeedR);
 	this.helice3.updateHeliceSpeed(this.rotationSpeedL);
 	this.helice4.updateHeliceSpeed(this.rotationSpeedL);
+	if(this.movingFlag==1){
+		this.helice3.updateHeliceSpeed(this.rotationSpeedL);
+		this.helice4.updateHeliceSpeed(this.rotationSpeedR);
+	}
+	if(this.movingFlag==2){
+		this.helice3.updateHeliceSpeed(this.rotationSpeedR);
+		this.helice4.updateHeliceSpeed(this.rotationSpeedL);
+	}
 }
 
 MyDrone.prototype.stopRotateLeft = function(){
@@ -362,6 +369,14 @@ MyDrone.prototype.stopRotateLeft = function(){
 	this.helice2.updateHeliceSpeed(-this.rotationSpeedN);
 	this.helice3.updateHeliceSpeed(this.rotationSpeedN);
 	this.helice4.updateHeliceSpeed(this.rotationSpeedN);
+	if(this.movingFlag==1){
+		this.helice3.updateHeliceSpeed(this.rotationSpeedL);
+		this.helice4.updateHeliceSpeed(this.rotationSpeedR);
+	}
+	if(this.movingFlag==2){
+		this.helice3.updateHeliceSpeed(this.rotationSpeedR);
+		this.helice4.updateHeliceSpeed(this.rotationSpeedL);
+	}
 		
 }
 
@@ -371,6 +386,14 @@ MyDrone.prototype.startRotateRight = function(currTime){
 	this.helice2.updateHeliceSpeed(-this.rotationSpeedL);
 	this.helice3.updateHeliceSpeed(this.rotationSpeedR);
 	this.helice4.updateHeliceSpeed(this.rotationSpeedR);
+	if(this.movingFlag==1){
+		this.helice3.updateHeliceSpeed(this.rotationSpeedR);
+		this.helice4.updateHeliceSpeed(this.rotationSpeedR);
+	}
+	if(this.movingFlag==2){
+		this.helice3.updateHeliceSpeed(this.rotationSpeedR);
+		this.helice4.updateHeliceSpeed(this.rotationSpeedR);
+	}
 }
 
 MyDrone.prototype.stopRotateRight = function(){
@@ -379,6 +402,14 @@ MyDrone.prototype.stopRotateRight = function(){
 	this.helice2.updateHeliceSpeed(-this.rotationSpeedN);
 	this.helice3.updateHeliceSpeed(this.rotationSpeedN);
 	this.helice4.updateHeliceSpeed(this.rotationSpeedN);
+	if(this.movingFlag==1){
+		this.helice3.updateHeliceSpeed(this.rotationSpeedL);
+		this.helice4.updateHeliceSpeed(this.rotationSpeedR);
+	}
+	if(this.movingFlag==2){
+		this.helice3.updateHeliceSpeed(this.rotationSpeedR);
+		this.helice4.updateHeliceSpeed(this.rotationSpeedL);
+	}
 		
 }
 

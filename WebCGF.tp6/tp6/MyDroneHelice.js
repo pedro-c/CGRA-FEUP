@@ -29,8 +29,8 @@
    this.scene.popMatrix();
 
    this.scene.pushMatrix()
-        this.scene.translate(0.5,0,0);
-		this.scene.scale(1,0.02,0.06);
+        this.scene.translate(.75,0,0);
+		this.scene.scale(1.5,0.02,0.06);
 		this.scene.rotate(-90*degToRad,0,1,0);
 		this.arm1.display();
    this.scene.popMatrix();

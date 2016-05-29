@@ -284,7 +284,8 @@ LightingScene.prototype.update = function(currTime) {
 	}else{
 		this.lights[5].disable();
 	}
-
+	
+	//deixar a carga
 	if(this.cargo.x > this.dropSite.x-0.2 && this.cargo.x < this.dropSite.x+0.2){
 		if(this.cargo.y > this.dropSite.y-0.2+0.5 && this.cargo.y < this.dropSite.y+0.2+0.5){
 			if(this.cargo.z > this.dropSite.z-0.2 && this.cargo.z < this.dropSite.z+0.2){
@@ -295,7 +296,8 @@ LightingScene.prototype.update = function(currTime) {
 			}
 		}
 	}
-
+	
+	//pegar na carga
 	else if(this.cargo.x > this.drone.x-0.2 && this.cargo.x < this.drone.x+0.2){
 		if(this.cargo.y > this.drone.y-0.2-this.droneCable.length-0.8 && this.cargo.y < this.drone.y+0.2-this.droneCable.length-0.8){
 			if(this.cargo.z > this.drone.z-0.2 && this.cargo.z < this.drone.z+0.2){
