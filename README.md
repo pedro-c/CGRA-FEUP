@@ -9,7 +9,7 @@ Then just on your browser: http://localhost:8080/
 
 
 #Screenshot
-![image](https://raw.githubusercontent.com/pedro-c/CGRA-FEUP/master/screenshots/1.png)
+![image](https://raw.githubusercontent.com/pedro-c/CGRA-FEUP/master/Screenshots/1.png)
 
 #Developers
 - Tiago Grosso
